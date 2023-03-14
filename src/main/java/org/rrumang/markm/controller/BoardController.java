@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
-    @Value("${org.zerock.upload.path") // import시에 springframework로 시작하는 Value
+    @Value("${org.rrumang.upload.path") // import시에 springframework로 시작하는 Value
     private String uploadPath;
 
     private final BoardService boardService;
