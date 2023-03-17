@@ -27,7 +27,7 @@ import java.util.*;
 @Log4j2
 public class UpDownController {
 
-    @Value("${org.zerock.upload.path}") // import시에 springframework로 시작하는 value
+    @Value("${org.rrumang.upload.path}") // import시에 springframework로 시작하는 value
     private String uploadPath;
 
     @ApiOperation(value = "upload POST", notes = "POST 방식으로 파일등록")
