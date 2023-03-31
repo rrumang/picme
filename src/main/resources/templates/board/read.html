@@ -5,6 +5,7 @@
       layout:decorate="~{layout/basic.html}">
 <head>
     <title>Board Read</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <div layout:fragment="content">
     <div class="row mt-3">
@@ -49,11 +50,32 @@
                         </div>
                     </div>
                 </div><!--end card body-->
-                <div class="col">
+                <!--<div class="col">
                     <div class="card" th:if="${dto.fileNames != null && dto.fileNames.size() > 0}">
                         <img class="card-img-top" th:each="fileName: ${dto.fileNames}" th:src="|/view/${fileName}|">
                     </div>
+                </div>-->
+
+                <div class="container">
+                    <div class="slider" th:if="${dto.fileNames != null && dto.fileNames.size() > 0}">
+                        <img th:each="fileName, i : ${dto.fileNames}" th:src="|/view/${fileName}|" th:classappend="${i.count} == 1 ? 'active' : ''">
+                    </div>
+                    <nav class="slider-nav">
+                        <ul>
+                            <li class="arrow">
+                                <button class="previous">
+                                    <span><<</span>
+                                </button>
+                            </li>
+                            <li class="arrow">
+                                <button class="next">
+                                    <span>>></span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
+
             </div>
         </div>
     </div><!--end row-->
@@ -311,5 +333,52 @@
     }
 
     printReplies(1, 10, true)
+
+    const items = document.querySelectorAll('.slider img');
+    const itemCount = items.length;
+    const nextItem = document.querySelector('.next');
+    const previousItem = document.querySelector('.previous');
+    let count = 0;
+
+    function showNextItem() {
+        items[count].classList.remove('active');
+
+        if(count < itemCount - 1) {
+            count++;
+        } else {
+            count = 0;
+        }
+
+        items[count].classList.add('active');
+        console.log(count);
+    }
+
+    function showPreviousItem() {
+        items[count].classList.remove('active');
+
+        if(count > 0) {
+            count--;
+        } else {
+            count = itemCount - 1;
+        }
+
+        items[count].classList.add('active');
+        console.log(count);
+    }
+
+    function keyPress(e) {
+        e = e || window.event;
+        alert("ddd : " + e.keyCode)
+
+        if (e.keyCode == '37') {
+            showPreviousItem();
+        } else if (e.keyCode == '39') {
+            showNextItem();
+        }
+    }
+
+    nextItem.addEventListener('click', showNextItem);
+    previousItem.addEventListener('click', showPreviousItem);
+    document.addEventListener('keydown', keyPress);
 
 </script>
